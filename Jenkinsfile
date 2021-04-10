@@ -32,7 +32,7 @@ pipeline {
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                     bat(/${MAVEN_HOME}\bin\mvn mvn --fail-at-end -Dmaven.test.failure.ignore clean package/)
+                     bat(/${MAVEN_HOME}\bin\mvn --fail-at-end -Dmaven.test.failure.ignore clean package/)
                 }
             }
         }
