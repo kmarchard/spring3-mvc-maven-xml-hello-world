@@ -52,27 +52,20 @@ pipeline {
                     artifactExists = fileExists artifactPath;
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-                        nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: '${BUILD_NUMBER}',
-                            repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
-                            artifacts: [
-                                // Artifact generated such as .jar, .ear and .war files.
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                // Lets upload the pom.xml file for additional information for Transitive dependencies
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
+                       nexusArtifactUploader artifacts: [
+[artifactId: 'spring3-mvc-maven-xml-hello-world', 
+ classifier: '', 
+ file: 'target/spring3 mvc maven-1.2.war',
+ type: 'war'
+ ]
+ ], 
+ credentialsId: '8ee4d537-d992-45b2-989b-b3a288beeb3d',
+ groupId: 'com.madhu', 
+ nexusUrl: 'localhost:8081', 
+ nexusVersion: 'nexus3', 
+ protocol: 'http', 
+ repository: 'http://localhost:8081/repository/krishna/', 
+ version: '1.2';
                     } else {
                         error "*** File: ${artifactPath}, could not be found";
                     }
